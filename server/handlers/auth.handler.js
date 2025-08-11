@@ -105,6 +105,7 @@ async function signup(req, res) {
   return res.status(201).send({ message: "A verification email has been sent." });
 }
 
+// auth.handler.js
 async function createAdminUser(req, res) {
   const isThereAUser = await query.user.findAny();
   if (isThereAUser) {
@@ -125,7 +126,7 @@ async function createAdminUser(req, res) {
 
   if (req.isHTML) {
     utils.setToken(res, token);
-    res.render("partials/auth/welcome");
+    res.redirect(302, "/shorten"); // Redirect server-side tới /shorten
     return;
   }
   
@@ -137,7 +138,7 @@ function login(req, res) {
 
   if (req.isHTML) {
     utils.setToken(res, token);
-    res.render("partials/auth/welcome");
+    res.redirect(302, "/shorten"); // Redirect server-side tới /shorten
     return;
   }
   

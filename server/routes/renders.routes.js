@@ -12,9 +12,20 @@ const router = Router();
 // pages
 router.get(
   "/",
+  asyncHandler((req, res) => {
+    console.log("REDIRECT_HOMEPAGE_URL:", env.REDIRECT_HOMEPAGE_URL); // Debug
+    if (!env.REDIRECT_HOMEPAGE_URL || !/^https?:\/\//.test(env.REDIRECT_HOMEPAGE_URL)) {
+      throw new Error("Invalid REDIRECT_HOMEPAGE_URL configuration");
+    }
+    res.redirect(302, env.REDIRECT_HOMEPAGE_URL);
+  })
+);
+
+router.get(
+  "/shorten",
   asyncHandler(auth.jwtLoosePage),
   asyncHandler(helpers.adminSetup),
-  asyncHandler(locals.user), 
+  asyncHandler(locals.user),
   asyncHandler(renders.homepage)
 );
 
@@ -27,6 +38,7 @@ router.get(
 
 router.get(
   "/logout", 
+  asyncHandler(auth.jwtLoosePage),
   asyncHandler(renders.logout)
 );
 

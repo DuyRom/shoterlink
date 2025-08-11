@@ -65,6 +65,7 @@ const spec = {
   REPORT_EMAIL: str({ default: "" }),
   CONTACT_EMAIL: str({ default: "" }),
   NODE_APP_INSTANCE: num({ default: 0 }),
+  REDIRECT_HOMEPAGE_URL: str({ default: "https://odinbi.com" }),
 };
 
 for (const key in spec) {

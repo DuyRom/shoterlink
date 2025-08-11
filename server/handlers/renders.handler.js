@@ -31,9 +31,11 @@ async function login(req, res) {
 
 function logout(req, res) {
   utils.deleteCurrentToken(res);
-  res.render("logout", {
-    title: "Logging out.."
-  });
+  if (req.isHTML) {
+    res.redirect(302, "/shorten"); // Redirect server-side tới /shorten
+    return;
+  }
+  res.status(200).send({ message: "Logged out successfully" });
 }
 
 async function createAdmin(req, res) {

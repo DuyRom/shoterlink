@@ -1,4 +1,5 @@
-<form id="login-signup" hx-post="/api/auth/login" hx-swap="outerHTML">
+<!-- custom/views/partials/auth/form.hbs -->
+<form id="login-signup" method="POST" action="/api/auth/login">
   <label class="{{#if errors.email}}error{{/if}}">
     Email address:
     <input
@@ -7,7 +8,6 @@
       type="email"
       autofocus="true"
       placeholder="Email address..."
-      hx-preserve="true"
     />
     {{#if errors.email}}<p class="error">{{errors.email}}</p>{{/if}}
   </label>
@@ -18,7 +18,6 @@
       id="password"
       type="password"
       placeholder="Password..."
-      hx-preserve="true"
     />
     {{#if errors.password}}<p class="error">{{errors.password}}</p>{{/if}}
   </label>
@@ -34,20 +33,13 @@
     {{#unless disallow_registration}}
       {{#if mail_enabled}}
         <button 
-          type="button"
-          class="secondary signup" 
-          hx-post="/api/auth/signup" 
-          hx-target="#login-signup" 
-          hx-trigger="click" 
-          hx-indicator="#login-signup" 
-          hx-swap="outerHTML"
-          hx-sync="closest form"
-          hx-on:htmx:before-request="htmx.addClass('#login-signup', 'signup')"
-          hx-on:htmx:after-request="htmx.removeClass('#login-signup', 'signup')"
+          type="submit"
+          formaction="/api/auth/signup"
+          class="secondary signup"
         >
-            <span>{{> icons/new_user}}</span>
-            <span>{{> icons/spinner}}</span>
-            Sign up
+          <span>{{> icons/new_user}}</span>
+          <span>{{> icons/spinner}}</span>
+          Sign up
         </button>
       {{/if}}
     {{/unless}}

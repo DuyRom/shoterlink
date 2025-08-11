@@ -1,3 +1,4 @@
+require("dotenv").config();
 const env = require("./env");
 
 const cookieParser = require("cookie-parser");
@@ -14,7 +15,6 @@ const locals = require("./handlers/locals.handler");
 const links = require("./handlers/links.handler");
 const routes = require("./routes");
 const utils = require("./utils");
-
 
 // run the cron jobs
 // the app might be running in cluster mode (multiple instances) so run the cron job only on one cluster (the first one)
